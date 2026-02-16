@@ -27,15 +27,14 @@
             height: 75vh; 
             object-fit: cover;
             
-            /* The Gradient Mask: Top 85% is solid, bottom 15% fades to transparent */
-            -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+            /* Radial mask: Solid at top-center, fading at bottom and bottom corners */
+            -webkit-mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 95%);
+            mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 95%);
         }
 
         /* --- MOBILE SETTINGS --- */
         @media (max-width: 768px) {
             body, html {
-                /* On mobile, we match the background to the teal to ensure the fade looks right */
                 background-color: #006b67; 
             }
 
@@ -48,18 +47,18 @@
                 filter: blur(20px) brightness(0.7);
                 transform: scale(1.1);
                 z-index: 1;
-                /* Background blur also gets a fade to blend into the teal */
-                -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-                mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+                /* Soften the blur background edges as well */
+                -webkit-mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 98%);
+                mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 98%);
             }
 
             .video-main {
                 width: 100vw;
                 height: auto; 
                 object-fit: contain;
-                /* Re-applying mask for mobile view */
-                -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-                mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+                /* Apply the same curved fade to mobile foreground */
+                -webkit-mask-image: radial-gradient(ellipse 130% 140% at 50% 0%, black 80%, transparent 96%);
+                mask-image: radial-gradient(ellipse 130% 140% at 50% 0%, black 80%, transparent 96%);
             }
         }
     </style>
