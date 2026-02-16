@@ -26,7 +26,7 @@
             width: 75vw;  
             height: 75vh; 
             object-fit: cover;
-            /* Desktop remains: Fades only the bottom and bottom corners */
+            /* Feathered edge applied to bottom and bottom corners */
             -webkit-mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 95%);
             mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 95%);
         }
@@ -42,7 +42,7 @@
                 filter: blur(20px) brightness(0.7);
                 transform: scale(1.1);
                 z-index: 1;
-                /* NO MASK HERE: The background remains solid to the edges of the screen */
+                /* Background is solid to the edges */
             }
 
             .video-main {
@@ -50,9 +50,10 @@
                 height: auto; 
                 object-fit: contain;
                 z-index: 2;
-                /* ONLY the foreground video frame gets the feathered edges (top/bottom/corners) */
-                -webkit-mask-image: radial-gradient(ellipse 150% 120% at 50% 50%, black 60%, transparent 95%);
-                mask-image: radial-gradient(ellipse 150% 120% at 50% 50%, black 60%, transparent 95%);
+                /* Mobile: Feathered edge applied ONLY to top, bottom and bottom corners of the frame */
+                /* To fade both top and bottom on mobile, we use this centered ellipse */
+                -webkit-mask-image: radial-gradient(ellipse 130% 120% at 50% 50%, black 65%, transparent 98%);
+                mask-image: radial-gradient(ellipse 130% 120% at 50% 50%, black 65%, transparent 98%);
             }
         }
     </style>
