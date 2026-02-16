@@ -26,13 +26,18 @@
             width: 75vw;  
             height: 75vh; 
             object-fit: cover;
-            /* Feathered edge applied to bottom and bottom corners */
+            
+            /* Radial mask: Solid at top-center, fading at bottom and bottom corners */
             -webkit-mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 95%);
             mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 95%);
         }
 
         /* --- MOBILE SETTINGS --- */
         @media (max-width: 768px) {
+            body, html {
+                background-color: #006b67; 
+            }
+
             .video-bg-blur {
                 display: block; 
                 position: fixed;
@@ -42,18 +47,18 @@
                 filter: blur(20px) brightness(0.7);
                 transform: scale(1.1);
                 z-index: 1;
-                /* Background is solid to the edges */
+                /* Soften the blur background edges as well */
+                -webkit-mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 98%);
+                mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 98%);
             }
 
             .video-main {
                 width: 100vw;
                 height: auto; 
                 object-fit: contain;
-                z-index: 2;
-                /* Mobile: Feathered edge applied ONLY to top, bottom and bottom corners of the frame */
-                /* To fade both top and bottom on mobile, we use this centered ellipse */
-                -webkit-mask-image: radial-gradient(ellipse 130% 120% at 50% 50%, black 65%, transparent 98%);
-                mask-image: radial-gradient(ellipse 130% 120% at 50% 50%, black 65%, transparent 98%);
+                /* Apply the same curved fade to mobile foreground */
+                -webkit-mask-image: radial-gradient(ellipse 130% 140% at 50% 0%, black 80%, transparent 96%);
+                mask-image: radial-gradient(ellipse 130% 140% at 50% 0%, black 80%, transparent 96%);
             }
         }
     </style>
@@ -65,7 +70,7 @@
     </video>
 
     <video autoplay muted loop playsinline class="video-main" id="mainVideo">
-        <source src="splash.mp4" type="video/mp4">
+        <source src="Tennis98.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
