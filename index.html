@@ -5,33 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Club 404</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; background-color: #000; }
-        #bg-video {
+        body, html { 
+            margin: 0; padding: 0; width: 100vw; height: 100vh; 
+            overflow: hidden; background-color: #000; 
+        }
+        video {
             position: fixed; top: 50%; left: 50%;
             width: 100vw; height: 100vh;
             transform: translate(-50%, -50%);
-            object-fit: cover; z-index: -1;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
 
-    <video autoplay muted loop playsinline preload="auto" crossorigin="anonymous" id="bg-video">
-        <source src="https://s220788.github.io/splash-page/Tennis98.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="Tennis98.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
     <script>
-        // Force the video to start if it hangs
-        var video = document.getElementById('bg-video');
-        video.oncanplaythrough = function() {
-            video.play();
-        };
-        // Refresh the source if it fails
-        video.onerror = function() {
-            console.log("Error loading video, retrying...");
-            video.load();
-        };
+        // Emergency play trigger for mobile browsers
+        window.addEventListener('touchstart', function() {
+            document.getElementById('bg-video').play();
+        }, {once: true});
     </script>
 </body>
 </html>
