@@ -5,20 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: black; }
-        .video-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
+        /* Remove all scrollbars and margins */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%;
+            overflow: hidden; 
+            background-color: black; 
         }
-        video { min-width: 100%; min-height: 100%; object-fit: cover; }
+
+        .video-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Keeps the video in the background */
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            /* This is the magic line that crops top/bottom to fit width */
+            object-fit: cover; 
+            /* Ensures the center of the video stays in view */
+            object-position: center center; 
+        }
     </style>
 </head>
 <body>
-    <div class="video-container">
-        <video autoplay muted loop playsinline poster="fallback-image.jpg">
+
+    <div class="video-wrapper">
+        <video autoplay muted loop playsinline>
             <source src="Tennis98.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
+
 </body>
 </html>
