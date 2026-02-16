@@ -14,46 +14,47 @@
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* The Blurred Background Layer (Instagram style) */
+        /* --- DESKTOP SETTINGS (Default) --- */
         .video-bg-blur {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            object-fit: cover;
-            filter: blur(25px) brightness(0.5); 
-            transform: scale(1.1); 
-            z-index: 1;
+            display: none; /* Hide blur on desktop */
         }
 
-        /* The Main Foreground Video */
         .video-main {
             position: relative;
             z-index: 2;
-            width: 100vw;
-            transition: all 0.5s ease;
+            /* Scale to 75% of screen width */
+            width: 75vw; 
+            /* Show 75% height, but the object-fit crops the top/bottom */
+            height: 75vh; 
+            object-fit: cover;
+            box-shadow: 0 0 50px rgba(0,0,0,0.7);
         }
 
-        /* DESKTOP: Trim 10% off top and bottom by showing only 80% height */
-        @media (min-width: 769px) {
-            .video-main {
-                height: 80vh; 
-                object-fit: cover; 
-            }
-        }
-
-        /* MOBILE: Full width with blur background */
+        /* --- MOBILE SETTINGS --- */
         @media (max-width: 768px) {
+            .video-bg-blur {
+                display: block; /* Show blur only on mobile */
+                position: fixed;
+                top: 0; left: 0;
+                width: 100vw; height: 100vh;
+                object-fit: cover;
+                filter: blur(20px) brightness(0.5);
+                transform: scale(1.1);
+                z-index: 1;
+            }
+
             .video-main {
-                height: auto; 
+                width: 100vw;
+                height: auto; /* Show full width on mobile */
                 object-fit: contain;
-                box-shadow: 0 0 100px rgba(0,0,0,0.8);
+                box-shadow: none;
             }
         }
     </style>
 </head>
 <body>
 
-    <video autoplay muted loop playsinline class="video-bg-blur">
+    <video autoplay muted loop playsinline class="video-bg-blur" id="bgVideo">
         <source src="Tennis98.mp4" type="video/mp4">
     </video>
 
@@ -63,19 +64,21 @@
     </video>
 
     <script>
-        // Sync the two videos
-        const v1 = document.querySelector('.video-bg-blur');
-        const v2 = document.getElementById('mainVideo');
+        const vBg = document.getElementById('bgVideo');
+        const vMain = document.getElementById('mainVideo');
 
-        v2.onplay = () => {
-            v1.currentTime = v2.currentTime;
-            v1.play();
+        // Only sync if the background video is actually visible (Mobile)
+        vMain.onplay = () => {
+            if (window.innerWidth <= 768) {
+                vBg.currentTime = vMain.currentTime;
+                vBg.play();
+            }
         };
 
-        // Fallback for mobile browsers that block dual-autoplay
-        document.addEventListener('click', () => {
-            v1.play();
-            v2.play();
+        // Interaction fix for mobile autoplay
+        document.addEventListener('touchstart', () => {
+            vMain.play();
+            if (window.innerWidth <= 768) vBg.play();
         }, {once: true});
     </script>
 </body>
