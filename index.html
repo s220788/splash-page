@@ -26,8 +26,7 @@
             width: 75vw;  
             height: 75vh; 
             object-fit: cover;
-            
-            /* Radial mask: Solid at top-center, fading at bottom and bottom corners */
+            /* Desktop remains anchored at top, fading only the bottom/corners */
             -webkit-mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 95%);
             mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 95%);
         }
@@ -47,18 +46,18 @@
                 filter: blur(20px) brightness(0.7);
                 transform: scale(1.1);
                 z-index: 1;
-                /* Soften the blur background edges as well */
-                -webkit-mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 98%);
-                mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 98%);
+                /* Mobile Blur: Fades top and bottom into teal */
+                -webkit-mask-image: radial-gradient(ellipse 150% 120% at 50% 50%, black 60%, transparent 95%);
+                mask-image: radial-gradient(ellipse 150% 120% at 50% 50%, black 60%, transparent 95%);
             }
 
             .video-main {
                 width: 100vw;
                 height: auto; 
                 object-fit: contain;
-                /* Apply the same curved fade to mobile foreground */
-                -webkit-mask-image: radial-gradient(ellipse 130% 140% at 50% 0%, black 80%, transparent 96%);
-                mask-image: radial-gradient(ellipse 130% 140% at 50% 0%, black 80%, transparent 96%);
+                /* Mobile Foreground: Fades top, bottom, and all 4 corners */
+                -webkit-mask-image: radial-gradient(ellipse 150% 120% at 50% 50%, black 60%, transparent 95%);
+                mask-image: radial-gradient(ellipse 150% 120% at 50% 50%, black 60%, transparent 95%);
             }
         }
     </style>
