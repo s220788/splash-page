@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Club 404</title>
+    
+    <link rel="icon" type="image/png" href="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png">
+
     <style>
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
@@ -11,14 +14,14 @@
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* The Blurred Background Layer */
+        /* The Blurred Background Layer (Instagram style) */
         .video-bg-blur {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
             object-fit: cover;
-            filter: blur(20px) brightness(0.6); /* Instagram-style blur */
-            transform: scale(1.1); /* Prevents white edges from the blur */
+            filter: blur(25px) brightness(0.5); 
+            transform: scale(1.1); 
             z-index: 1;
         }
 
@@ -30,20 +33,20 @@
             transition: all 0.5s ease;
         }
 
-        /* DESKTOP: Trim 10% off top and bottom */
+        /* DESKTOP: Trim 10% off top and bottom by showing only 80% height */
         @media (min-width: 769px) {
             .video-main {
-                height: 80vh; /* Shows only 80% of screen height */
-                object-fit: cover; /* Crops the 10% top/bottom to fill that 80vh */
+                height: 80vh; 
+                object-fit: cover; 
             }
         }
 
         /* MOBILE: Full width with blur background */
         @media (max-width: 768px) {
             .video-main {
-                height: auto; /* Maintains natural aspect ratio */
-                object-fit: contain; /* Ensures full width is visible */
-                box-shadow: 0 0 50px rgba(0,0,0,0.5); /* Adds depth over the blur */
+                height: auto; 
+                object-fit: contain;
+                box-shadow: 0 0 100px rgba(0,0,0,0.8);
             }
         }
     </style>
@@ -60,7 +63,7 @@
     </video>
 
     <script>
-        // Synchronize the two videos so the blur matches the foreground perfectly
+        // Sync the two videos
         const v1 = document.querySelector('.video-bg-blur');
         const v2 = document.getElementById('mainVideo');
 
@@ -68,6 +71,12 @@
             v1.currentTime = v2.currentTime;
             v1.play();
         };
+
+        // Fallback for mobile browsers that block dual-autoplay
+        document.addEventListener('click', () => {
+            v1.play();
+            v2.play();
+        }, {once: true});
     </script>
 </body>
 </html>
