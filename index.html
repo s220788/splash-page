@@ -5,43 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
     <style>
-        /* Remove all scrollbars and margins */
         body, html { 
             margin: 0; 
             padding: 0; 
+            width: 100%; 
             height: 100%; 
-            width: 100%;
             overflow: hidden; 
-            background-color: black; 
+            background-color: #000; /* If video fails, it stays black */
         }
 
-        .video-wrapper {
+        #bg-video {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1; /* Keeps the video in the background */
-        }
-
-        video {
-            width: 100%;
-            height: 100%;
-            /* This is the magic line that crops top/bottom to fit width */
-            object-fit: cover; 
-            /* Ensures the center of the video stays in view */
-            object-position: center center; 
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
 
-    <div class="video-wrapper">
-        <video autoplay muted loop playsinline>
-            <source src="Tennis98.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="Tennis98.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        // Force play if the browser tries to pause it on load
+        document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('bg-video');
+            video.play().catch(function(error) {
+                console.log("Autoplay was prevented. User interaction might be required.");
+            });
+        });
+    </script>
 
 </body>
 </html>
