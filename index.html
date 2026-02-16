@@ -26,17 +26,13 @@
             width: 75vw;  
             height: 75vh; 
             object-fit: cover;
-            /* Desktop remains anchored at top, fading only the bottom/corners */
+            /* Desktop remains: Fades only the bottom and bottom corners */
             -webkit-mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 95%);
             mask-image: radial-gradient(ellipse 120% 140% at 50% 0%, black 80%, transparent 95%);
         }
 
         /* --- MOBILE SETTINGS --- */
         @media (max-width: 768px) {
-            body, html {
-                background-color: #006b67; 
-            }
-
             .video-bg-blur {
                 display: block; 
                 position: fixed;
@@ -46,16 +42,15 @@
                 filter: blur(20px) brightness(0.7);
                 transform: scale(1.1);
                 z-index: 1;
-                /* Mobile Blur: Fades top and bottom into teal */
-                -webkit-mask-image: radial-gradient(ellipse 150% 120% at 50% 50%, black 60%, transparent 95%);
-                mask-image: radial-gradient(ellipse 150% 120% at 50% 50%, black 60%, transparent 95%);
+                /* NO MASK HERE: The background remains solid to the edges of the screen */
             }
 
             .video-main {
                 width: 100vw;
                 height: auto; 
                 object-fit: contain;
-                /* Mobile Foreground: Fades top, bottom, and all 4 corners */
+                z-index: 2;
+                /* ONLY the foreground video frame gets the feathered edges (top/bottom/corners) */
                 -webkit-mask-image: radial-gradient(ellipse 150% 120% at 50% 50%, black 60%, transparent 95%);
                 mask-image: radial-gradient(ellipse 150% 120% at 50% 50%, black 60%, transparent 95%);
             }
